@@ -13,19 +13,21 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    positionXY(event){
+        var playerPosition  = cc.v2(this.node.position.x, this.node.position.y);
+        var mousePosition = event.getLocation();
 
-    @property
-    text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
+        mousePosition = this.node.parent.convertToNodeSpaceAR(mousePosition);
+        var angle = mousePosition.signAngle(playerPosition);
+        console.log(angle);
+    }
+   
+    onLoad(){
+      this.node.parent.on('mousemove', this.positionXY, this);
+    }
 
     start () {
 
     }
 
-    // update (dt) {}
 }
