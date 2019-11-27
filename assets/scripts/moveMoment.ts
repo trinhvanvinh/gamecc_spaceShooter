@@ -19,7 +19,11 @@ export default class NewClass extends cc.Component {
 
         mousePosition = this.node.parent.convertToNodeSpaceAR(mousePosition);
         var angle = mousePosition.signAngle(playerPosition);
-        console.log(angle);
+        var angleD = cc.misc.radiansToDegrees(angle);
+        angleD = (angleD*-1)*45;
+        this.node.angle = angleD;
+
+        //console.log(angle);
     }
    
     onLoad(){

@@ -12,16 +12,29 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
+    action: cc.ActionInterval;
 
-    @property(cc.Label)
-    label: cc.Label = null;
-
-    @property
-    text: string = 'hello';
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        // this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+        //     console.log('Mouse down');
+        //   }, this);
+
+        this.action = this.moveToPlayer();
+        this.node.runAction(this.action);
+
+        var manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        
+
+    }
+
+    moveToPlayer(){
+        var moveAction = cc.moveTo( 3, this.node.parent.getChildByName('soldier1').position.x, this.node.parent.getChildByName('soldier1').position.y );
+        return moveAction;
+    }
 
     start () {
 
