@@ -17,6 +17,19 @@ export default class NewClass extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
+    onCollisionEnter(other, self){
+        if(other.tag == 2 ){
+            this.node.destroy();
+        }
+
+        if(other.tag == 1){
+            cc.director.loadScene("Game");
+        }
+
+    }
+
+    
+
     onLoad () {
         // this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
         //     console.log('Mouse down');
@@ -28,6 +41,7 @@ export default class NewClass extends cc.Component {
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
         
+        cc.director.preloadScene("Game");
 
     }
 

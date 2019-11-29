@@ -17,12 +17,16 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     bullet: cc.Prefab = null;
 
+    @property(cc.Prefab)
+    badguy: cc.Prefab = null;
+
     @property
     posX: number = 0;
     posY: number = 0;
 
 
     spawn(event){
+        console.log(event);
         var newBullet = cc.instantiate(this.bullet);
         newBullet.setPosition(this.node.getChildByName('soldier1').position.x,this.node.getChildByName('soldier1').position.y);
         this.node.addChild(newBullet);
@@ -45,6 +49,19 @@ export default class NewClass extends cc.Component {
 
     onLoad(){
         this.node.on('mousedown', this.spawn, this);
+        this.schedule(this.createBad, 1, cc.macro.REPEAT_FOREVER,3 );
+    }
+
+    createBad(){
+        var newBadGuy = cc.instantiate(this.badguy);
+        var positions =[
+            cc.v2(-778, 458), cc.v2(778, 458), cc.v2(779, 6), cc.v2(-780,20),
+            cc.v2(778, 700), cc.v2(-778, -758), cc.v2(779, 200), cc.v2(-700,20),cc.v2(779,200),
+        ];
+
+        var badGuyPosition = Math.floor(Math.random() * positions.length );
+        newBadGuy.setPosition(positions[badGuyPosition]);
+
     }
 
     start () {
